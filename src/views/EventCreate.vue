@@ -88,8 +88,8 @@
             });
             this.event = this.createFreshEventObject()
           })
-          .catch(error => {
-            console.log('there was a problem creating your event')
+          .catch(error => {{}
+
           })
       },
       createFreshEventObject() {

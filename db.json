@@ -249,6 +249,24 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 384653,
+      "user": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "category": "education",
+      "organizer": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "title": "test",
+      "description": "success",
+      "location": "kathmandu",
+      "date": "2019-10-03T21:24:00.000Z",
+      "time": "19:00",
+      "attendees": []
     }
   ]
 }
