@@ -53,16 +53,16 @@
   import {mapState, mapGetters} from 'vuex'
 
   export default {
-    computed: {
-      catLength() {
-        return this.$store.getters.catLength
-      },
-      ...mapGetters(['getEventById'])
-      // ...mapState({
-      //   user: 'user',
-      //   categories: 'categories'
-      // })
-    },
+    // computed: {
+    //   catLength() {
+    //     return this.$store.getters.catLength
+    //   },
+    //   ...mapGetters(['getEventById'])
+    //   // ...mapState({
+    //   //   user: 'user',
+    //   //   categories: 'categories'
+    //   // })
+    // },
     data() {
       const times = [];
       for (let i = 1; i <= 24; i++) {

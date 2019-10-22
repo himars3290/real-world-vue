@@ -1,13 +1,13 @@
 export const namespaced = true;
 
 export const state = {
-  notification: []
+  notifications: []
 };
 
 let nextId = 1;
 export const mutations = {
   PUSH(state, notification) {
-    state.notification.push({
+    state.notifications.push({
       ...notification,
       id: nextId++
     })
