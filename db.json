@@ -231,6 +231,24 @@
       "date": "",
       "time": "5:00",
       "attendees": []
+    },
+    {
+      "id": 936235,
+      "user": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "category": "food",
+      "organizer": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "title": "Burger eating competition",
+      "description": "",
+      "location": "Montreal",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
