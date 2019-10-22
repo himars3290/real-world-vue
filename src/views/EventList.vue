@@ -7,9 +7,10 @@
         :to="{ name: 'event-list', query: { page: page - 1 } }"
         rel="prev"
       >
-        Previous Page
+        Prev Page
       </router-link>
     </template>
+    |
     <template v-if="hasNextPage">
       <router-link
         :to="{ name: 'event-list', query: { page: page + 1 } }"
@@ -30,13 +31,16 @@ export default {
   },
   created() {
     this.$store.dispatch('event/fetchEvents', {
-      perPage: 3,
+      perPage: this.perPage,
       page: this.page
     })
   },
   computed: {
     page() {
       return parseInt(this.$route.query.page) || 1
+    },
+    perPage(){
+      return 3;
     },
     hasNextPage(){
       return this.event.eventsTotal > this.page * this.perPage;
