@@ -57,14 +57,14 @@ export default {
     catLength() {
       return this.$store.getters.catLength
     },
-    ...mapGetters(['getEventById']),
+    ...mapGetters(['getEventById'])
     // ...mapState({
     //   user: 'user',
     //   categories: 'categories'
     // })
   },
   data() {
-    const times = [];
+    const times = []
     for (let i = 1; i <= 24; i++) {
       times.push(i + ':00')
     }
@@ -78,16 +78,27 @@ export default {
     Datepicker
   },
   methods: {
-    createEvent(){
-      this.$store.dispatch('createEvent', this.event);
+    createEvent() {
+      this.$store
+        .dispatch('createEvent', this.event)
+        .then(() => {
+          this.$router.push({
+            name: 'event-show',
+            params: { id: this.event.id }
+          })
+          this.event = this.createFreshEventObject()
+        })
+        .catch(error => {
+          console.log('there was a problem creating your event')
+        })
     },
     createFreshEventObject() {
-      const user = this.$store.state.user;
-      const id = Math.floor(Math.random() * 1000000);
+      const user = this.$store.state.user
+      const id = Math.floor(Math.random() * 1000000)
 
-      return{
+      return {
         id: id,
-        user:user,
+        user: user,
         category: '',
         organizer: user,
         title: '',
@@ -96,7 +107,6 @@ export default {
         date: '',
         time: '',
         attendees: []
-
       }
     }
   }

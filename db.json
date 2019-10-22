@@ -62,6 +62,24 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 196364,
+      "user": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "category": "nature",
+      "organizer": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "title": "Plantation",
+      "description": "",
+      "location": "Swayambhu",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
