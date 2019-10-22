@@ -10,7 +10,7 @@
 
 <script>
   import EventCard from '@/components/EventCard.vue'
-  import axios from 'axios'
+  import EventService from "../services/EventService";
 
   export default {
     components: {
@@ -22,9 +22,9 @@
       }
     },
     created() {
-      axios.get('http://localhost:8080/db.json')
+      EventService.getEvents()
         .then(response => {
-          this.events = response.data.events;
+          this.events = response.data;
           console.log(response);
         })
         .catch(error => {
