@@ -50,19 +50,9 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker'
-  import {mapState, mapGetters} from 'vuex'
+  import Nprogress from 'nprogress'
 
   export default {
-    // computed: {
-    //   catLength() {
-    //     return this.$store.getters.catLength
-    //   },
-    //   ...mapGetters(['getEventById'])
-    //   // ...mapState({
-    //   //   user: 'user',
-    //   //   categories: 'categories'
-    //   // })
-    // },
     data() {
       const times = [];
       for (let i = 1; i <= 24; i++) {
@@ -79,6 +69,7 @@
     },
     methods: {
       createEvent() {
+        Nprogress.start();
         this.$store
           .dispatch('event/createEvent', this.event)
           .then(() => {
@@ -88,8 +79,8 @@
             });
             this.event = this.createFreshEventObject()
           })
-          .catch(error => {{}
-
+          .catch(error => {
+            Nprogress.done();
           })
       },
       createFreshEventObject() {
