@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import EventCreate from './views/EventCreate.vue'
-import EventList from './views/EventList.vue'
-import EventShow from './views/EventShow.vue'
+import EventList from './views/EventList'
+import EventCreate from './views/EventCreate'
+import EventShow from './views/EventShow'
+import NProgress from 'nprogress'
+import store from './store/store'
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
 
   base: process.env.BASE_URL,
@@ -14,7 +16,15 @@ export default new Router({
     {
       path: '/',
       name: 'event-list',
-      component: EventList
+      component: EventList,
+      // beforeEnter(routeTo, routeFrom, next) {
+      //   store.dispatch('event/fetchEvents', {
+      //     perPage: this.perPage,
+      //     page: this.page
+      //   }).then(() => {
+      //     next()
+      //   })
+      // }
     },
     {
       path: '/event/create',
@@ -25,7 +35,13 @@ export default new Router({
       path: '/event/:id',
       name: 'event-show',
       component: EventShow,
-      props: true
+      props: true,
+      beforeEnter(routeTo, routeFrom, next) {
+        store.dispatch('event/fetchEvent', routeTo.params.id).then((event) => {
+          routeTo.params.event = event;
+          next()
+        })
+      }
     }
     // {
     //   path: "/about-us",
@@ -41,4 +57,15 @@ export default new Router({
     //   redirect: {name: "about"}
     // }
   ]
-})
+});
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  NProgress.start();
+  next()
+});
+
+router.afterEach(() => {
+  NProgress.done()
+});
+
+export default router
