@@ -34,17 +34,18 @@ const router = new Router({
         store.dispatch('event/fetchEvent', routeTo.params.id).then((event) => {
           routeTo.params.event = event;
           next()
-        })
+        }).catch(() => next({name: '404', params: {resource: 'event'}}))
       }
     },
     {
       path: '/404',
       name: '404',
-      component: NotFound
+      component: NotFound,
+      props: true
     },
     {
       path: '*',
-      redirect: {name: 404}
+      redirect: {name: 404, params: {resource: 'page'}}
     }
   ]
 });
