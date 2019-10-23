@@ -1,4 +1,5 @@
 import EventService from '../../services/EventService'
+import store from "../store";
 
 export const namespaced = true;
 
@@ -11,7 +12,8 @@ export const state = {
   ],
   events: [],
   eventsTotal: 0,
-  event: {}
+  event: {},
+  perPage: 3
 };
 
 export const mutations = {
@@ -52,12 +54,11 @@ export const actions = {
         throw error
       })
   },
-  fetchEvents({commit, dispatch}, {perPage, page}) {
-    return EventService.getEvents(perPage, page)
+  fetchEvents({commit, dispatch, store}, {page}) {
+    return EventService.getEvents(state.perPage, page)
       .then(response => {
         commit('SET_EVENTS_TOTAL', response.headers['x-total-count']);
         commit('SET_EVENTS', response.data);
-        console.log(response)
       })
       .catch(error => {
         const notification = {
