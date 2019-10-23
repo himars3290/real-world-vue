@@ -18,9 +18,9 @@
     </h2>
     <ul class="list-group">
       <li
-        v-for="(attendee, index) in event.attendees"
-        :key="index"
-        class="list-item"
+          v-for="(attendee, index) in event.attendees"
+          :key="index"
+          class="list-item"
       >
         <b>{{ attendee.name }}</b>
       </li>
@@ -28,41 +28,47 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+  import { mapState} from 'vuex'
+  import NProgress from 'nprogress'
+  import store from '../store/store'
 
-export default {
-  props: ['id'],
-  created() {
-    this.fetchEvent(this.id)
-  },
-  computed: mapState({
-    event: state => state.event.event
-  }),
-  methods: mapActions('event', ['fetchEvent'])
-}
+  export default {
+    props: ['id'],
+    beforeRouteEnter(routeTo, routeFrom, next) {
+      NProgress.start();
+      store.dispatch('event/fetchEvent', routeTo.params.id).then(()=>{
+        NProgress.done();
+        next();
+      });
+    },
+
+    computed: mapState({
+      event: state => state.event.event
+    }),
+  }
 </script>
 
 <style scoped>
-.location {
-  margin-bottom: 0;
-}
+  .location {
+    margin-bottom: 0;
+  }
 
-.location > .icon {
-  margin-left: 10px;
-}
+  .location > .icon {
+    margin-left: 10px;
+  }
 
-.event-header > .title {
-  margin: 0;
-}
+  .event-header > .title {
+    margin: 0;
+  }
 
-.list-group {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+  .list-group {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-.list-group > .list-item {
-  padding: 1em 0;
-  border-bottom: solid 1px #e5e5e5;
-}
+  .list-group > .list-item {
+    padding: 1em 0;
+    border-bottom: solid 1px #e5e5e5;
+  }
 </style>

@@ -10,16 +10,16 @@ const apiClient = axios.create({
     'Content-Type': 'application/json'
   }
 });
-
-apiClient.interceptors.request.use(config => {
-  Nprogress.start();
-  return config
-});
-
-apiClient.interceptors.response.use(response => {
-  Nprogress.done();
-  return response
-});
+//
+// apiClient.interceptors.request.use(config => {
+//   Nprogress.start();
+//   return config
+// });
+//
+// apiClient.interceptors.response.use(response => {
+//   Nprogress.done();
+//   return response
+// });
 
 export default {
   getEvents(perPage, page) {
