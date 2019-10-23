@@ -2,110 +2,111 @@
   <div>
     <h1>Create an Event</h1>
     <form @submit.prevent="createEvent">
-      <label>Select a category</label>
-      <select v-model="event.category">
-        <option v-for="cat in categories" :key="cat">{{ cat }}</option>
-      </select>
+      <BaseSelect
+        label="Select a category"
+        :options="categories"
+        v-model="event.category"
+      />
       <h3>Name & describe your event</h3>
-      <div class="field">
-        <label>Title</label>
-        <input
-            v-model="event.title"
-            type="text"
-            placeholder="Add an event title"
-        />
-      </div>
-      <div class="field">
-        <label>Description</label>
-        <input
-            v-model="event.description"
-            type="text"
-            placeholder="Add a description"
-        />
-      </div>
+      <BaseInput
+        label="Title"
+        v-model="event.title"
+        type="text"
+        placeholder="Title"
+        class="field"
+      />
+      <BaseInput
+        label="Description"
+        v-model="event.description"
+        type="text"
+        placeholder="Add a description"
+        class="field"
+      />
+
       <h3>Where is your event?</h3>
-      <div class="field">
-        <label>Location</label>
-        <input
-            v-model="event.location"
-            type="text"
-            placeholder="Add a location"
-        />
-      </div>
+      <BaseInput
+        label="Location"
+        v-model="event.location"
+        type="text"
+        placeholder="Add a location"
+        class="field"
+      />
+
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
-        <datepicker v-model="event.date" placeholder="Select a date"/>
+        <datepicker v-model="event.date" placeholder="Select a date" />
       </div>
-      <div class="field">
-        <label>Select a time</label>
-        <select v-model="event.time">
-          <option v-for="time in times" :key="time">{{ time }}</option>
-        </select>
-      </div>
-      <input type="submit" class="button -fill-gradient" value="Submit"/>
+      <BaseSelect label="Select a time" :options="times" v-model="event.time" class="field"/>
+
+<!--      <input type="submit" class="button -fill-gradient" value="Submit" />-->
+      <BaseButton type="submit" class="button -fill-gradient">Submit</BaseButton>
     </form>
   </div>
 </template>
 
 <script>
-  import Datepicker from 'vuejs-datepicker'
-  import Nprogress from 'nprogress'
+import Datepicker from 'vuejs-datepicker'
+import Nprogress from 'nprogress'
+import BaseInput from '../components/BaseInput'
+import BaseSelect from '../components/BaseSelect'
 
-  export default {
-    data() {
-      const times = [];
-      for (let i = 1; i <= 24; i++) {
-        times.push(i + ':00')
-      }
+export default {
+  data() {
+    const times = []
+    for (let i = 1; i <= 24; i++) {
+      times.push(i + ':00')
+    }
+    return {
+      times,
+      categories: this.$store.state.categories,
+      event: this.createFreshEventObject()
+    }
+  },
+  components: {
+    BaseSelect,
+    BaseInput,
+    Datepicker
+  },
+  methods: {
+    createEvent() {
+      Nprogress.start()
+      this.$store
+        .dispatch('event/createEvent', this.event)
+        .then(() => {
+          this.$router.push({
+            name: 'event-show',
+            params: { id: this.event.id }
+          })
+          this.event = this.createFreshEventObject()
+        })
+        .catch(error => {
+          Nprogress.done()
+        })
+    },
+    createFreshEventObject() {
+      const user = this.$store.state.user.user
+      const id = Math.floor(Math.random() * 1000000)
+
       return {
-        times,
-        categories: this.$store.state.categories,
-        event: this.createFreshEventObject()
-      }
-    },
-    components: {
-      Datepicker
-    },
-    methods: {
-      createEvent() {
-        Nprogress.start();
-        this.$store
-          .dispatch('event/createEvent', this.event)
-          .then(() => {
-            this.$router.push({
-              name: 'event-show',
-              params: {id: this.event.id}
-            });
-            this.event = this.createFreshEventObject()
-          })
-          .catch(error => {
-            Nprogress.done();
-          })
-      },
-      createFreshEventObject() {
-        const user = this.$store.state.user.user;
-        const id = Math.floor(Math.random() * 1000000);
-
-        return {
-          id: id,
-          user: user,
-          category: '',
-          organizer: user,
-          title: '',
-          description: '',
-          location: '',
-          date: '',
-          time: '',
-          attendees: []
-        }
+        id: id,
+        user: user,
+        category: '',
+        organizer: user,
+        title: '',
+        description: '',
+        location: '',
+        date: '',
+        time: '',
+        attendees: []
       }
     }
   }
+}
 </script>
 
 <style scoped>
-  .field {
-    margin-bottom: 24px;
-  }
+.field {
+  margin-bottom: 24px;
+}
 </style>
