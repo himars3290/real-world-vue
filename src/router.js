@@ -5,6 +5,7 @@ import EventCreate from './views/EventCreate'
 import EventShow from './views/EventShow'
 import NProgress from 'nprogress'
 import store from './store/store'
+import NotFound from "./views/NotFound";
 
 Vue.use(Router);
 
@@ -35,6 +36,15 @@ const router = new Router({
           next()
         })
       }
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: NotFound
+    },
+    {
+      path: '*',
+      redirect: {name: 404}
     }
   ]
 });
