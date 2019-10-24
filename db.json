@@ -465,6 +465,24 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 52770,
+      "user": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "category": "housing",
+      "organizer": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "title": "New House",
+      "description": "Appartment Hunting",
+      "location": "Toronto",
+      "date": "2019-10-18T21:43:00.000Z",
+      "time": "17:00",
+      "attendees": []
     }
   ]
 }
