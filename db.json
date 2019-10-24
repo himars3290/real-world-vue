@@ -447,6 +447,24 @@
       "date": "2019-10-05T02:45:00.000Z",
       "time": "21:00",
       "attendees": []
+    },
+    {
+      "id": 118493,
+      "user": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "category": "food",
+      "organizer": {
+        "id": "abc",
+        "name": "Rashmi"
+      },
+      "title": "test",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
